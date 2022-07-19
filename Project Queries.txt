@@ -1,0 +1,16 @@
+
+##Qyery to get all students with Airtel contacts.
+ SELECT StuName FROM Student WHERE telephone LIKE "%75%";
+##Query to get the name students doing computer science.
+ SELECT StuName FROM Student WHERE id IN(SELECT member_id FROM Link WHERE faculty_id IN(SELECT RegNo FROM Faculty WHERE Programme LIKE "%Computer Science%"));
+##Query to get the name of students doing computer science in year 2.
+ SELECT StuName FROM Student WHERE id IN(SELECT member_id FROM Link WHERE faculty_id IN(SELECT RegNo FROM Faculty WHERE Programme LIKE "%Computer Science%" AND Time = '2'));
+##Query to show all students and their fees
+SELECT Student.StuName,Finance.Fees FROM Student LEFT JOIN Finance ON Student.id=Finance.AccNo;
+##Query to select all the students paying the most amount of Fees
+SELECT StuName FROM Student
+    JOIN Link ON Link.member_id = Student.id
+    JOIN Finance ON Finance.AccNo = Link.faculty_id
+    ORDER BY Fees DESC LIMIT 10
+##Query to display the number of students in the database.
+SELECT COUNT(StuName) FROM Student;
